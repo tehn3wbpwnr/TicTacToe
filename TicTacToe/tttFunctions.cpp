@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
 #include <regex>
-#include <stdlib.h>
+#include <cstdlib>
+#include "Protos.h"
 
 using namespace std;
 
@@ -23,25 +24,8 @@ bool playAgain(string player)
 {
     cout << player << " Wins!" << endl;
     cout << "Would you like to play again? (y/n)" << endl;
-    string answer;
-    while (true)
-    {
-        cin >> answer;
-        const string regexInput = answer;
-        regex r("[yYnN]");
-        if (answer.length() == 1 && regex_match(regexInput, r))
-        {
-            if (answer[0] == 'y' || answer[0] == 'Y')
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        cout << "Invalid character, please try again" << endl;
-    }
+    
+    return getYesNo();
 }
 
 char getGuess(string player, char board[])
@@ -54,7 +38,7 @@ char getGuess(string player, char board[])
         cin >> input;
         const string regexInput = input;
         regex r("[1-9]");
-        if (input.length() == 1 && regex_match(regexInput,r) && board[input[0]-49] != 'X' || board[input[0]-49] != 'O')
+        if (input.length() == 1 && regex_match(regexInput,r) && board[input[0]-49] != 'X' && board[input[0]-49] != 'O')
         {
             ch = input[0];
             return ch;
@@ -105,7 +89,7 @@ void displayBoard(char board[])
     cout << "-----------" << endl;
     cout << " " << board[3] << " " << "|" << " " << board[4] << " " << "|" << " " << board[5] << " " << endl;
     cout << "-----------" << endl;
-    cout << " " << board[6] << " " << "|" << " " << board[7] << " " << "|" << " " << board[8] << " " << endl;
+    cout << " " << board[6] << " " << "|" << " " << board[7] << " " << "|" << " " << board[8] << " " << endl <<endl;
 }
 
 void resetGame(char board[])
@@ -115,3 +99,28 @@ void resetGame(char board[])
         board[i] = (char)(i + 49);
     }
 }
+
+bool getYesNo()
+{
+    string answer;
+    while (true)
+    {
+        cin >> answer;
+        const string regexInput = answer;
+        regex r("[yYnN]");
+        if (answer.length() == 1 && regex_match(regexInput, r))
+        {
+            if (answer[0] == 'y' || answer[0] == 'Y')
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        cout << "Invalid character, please try again" << endl;
+    }
+}
+
+ 

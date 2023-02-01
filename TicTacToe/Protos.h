@@ -7,3 +7,4 @@ bool checkWin(char board[]);
 bool playAgain(std::string player);
 char getGuess(std::string player, char board[]);
 void resetGame(char board[]);
+bool getYesNo();
