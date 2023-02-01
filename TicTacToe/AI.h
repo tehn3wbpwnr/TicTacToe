@@ -7,5 +7,5 @@ bool isVsAi();
 //WIP funcs
 int checkAIScore(char board[]);
 bool isMovesLeft(char board[]);
-int miniMax(char board[], bool isMax);
+int miniMax(char board[], int depth, bool isMax);
 int bestAITurn(char board[]);

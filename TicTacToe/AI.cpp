@@ -106,7 +106,7 @@ int checkAIScore(char board[])
 
 //This is the minimax function, this function will be used recurisvely to plot out moves by the ai and select which is best
 
-int miniMax(char board[], bool isMax)
+int miniMax(char board[], int depth, bool isMax)
 {
     //during recursive calls check to see the weighting of move made
     int score = checkAIScore(board);
@@ -140,7 +140,7 @@ int miniMax(char board[], bool isMax)
             {
                 char temp = board[i];
                 board[i] = 'O'; //assign move
-                bestScore = max(bestScore, miniMax(board, !isMax));
+                bestScore = max(bestScore, miniMax(board,depth + 1, !isMax));
 
                 //undo move
                 board[i] = temp;
@@ -160,7 +160,7 @@ int miniMax(char board[], bool isMax)
             {
                 char temp = board[i];
                 board[i] = 'X'; //assign move
-                minScore = min(minScore, miniMax(board, !isMax));
+                minScore = min(minScore, miniMax(board, depth + 1, !isMax));
 
                 //undo move
                 board[i] = temp;
@@ -180,7 +180,7 @@ int bestAITurn(char board[])
     int move = -1;
     int bestScore = -100;
 
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < 9; i++) //checks each empty space to see if I place an O there and turns continue the "score" of placing there.
     {
         //make move
         if (board[i] != 'X' && board[i] != 'O')
@@ -188,7 +188,7 @@ int bestAITurn(char board[])
             char temp = board[i];
             board[i] = 'O';
 
-            int moveScore = miniMax(board, false);
+            int moveScore = miniMax(board, 0, false); 
 
             //undo move
             board[i] = temp;
@@ -200,7 +200,7 @@ int bestAITurn(char board[])
             }
         }
     }
-
+    cout << "AI Turn: " << endl;
     return move;
 }
 
